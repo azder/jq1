@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>jQuery.data</title>
+		<style>
+			table {
+				margin: 1em;
+				border: 1px solid #999999;
+			}
+			tr.odd {
+				background-color: #E3E3FF;
+			}
+			tr.even {
+				background-color: #E3FFE3;
+			}
+		</style>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js" ></script>
+		<script>
+			function broj(a,b) {
+				return a-b;
+			}
+
+
+			window.onload= function() {
+				niza = new Array();
+				$("table tr").each( function() {
+					niza.push($(this).children("td").first().html())
+				});
+
+				niza=niza.sort(broj);
+				i=-1;
+				$("table tr").each( function() {
+					i++;
+					niza.push($(this).children("td").first().html(niza[i]))
+				});
+
+			}
+		</script>
+	</head>
+	<body>
+
+		<table id="table1">
+			<tr>
+				<td>2</td>
+				<td>world</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>Hello</td>
+			</tr>
+			<tr>
+				<td>6</td>
+				<td>today</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>how</td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td>you</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>are</td>
+			</tr>
+		</table>
+		<table id="table2">
+			<tr>
+				<td>2</td>
+				<td>table</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>This</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>should</td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td>be</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>not</td>
+			</tr>
+			<tr>
+				<td>6</td>
+				<td>sorted</td>
+			</tr>
+		</table>
+	</body>
+</html>
+

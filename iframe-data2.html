@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<title >iframe-data2</title>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" >
+		</script>
+		<script type="text/javascript" >
+
+	jQuery( function($) {
+		var testData = 'hello world from #div1';
+		//var $body = $(window.top.document.body);
+		//var $div1 = $body.find('#div1');
+		//var outsideTestData = $body.find('#div1').data('test');
+		var $div2 = $('#div2');
+		//$div2.append( 'outside test data: "' + testData + '" === "' + outsideTestData + '" => ' + (testData === outsideTestData) );
+		console.log('window.top.jQuery.cache',window.top.jQuery.cache);
+		var $pjq = window.top.jQuery.noConflict();
+		$div2.append($pjq('#div1').data('test'));
+	}); // jQuery()
+
+		</script>
+	</head>
+	<body style="background-color: silver">
+
+		<div id="div1" class="div1" >
+			<div id="div2" class="div2" >
+			</div>
+		</div>
+	</body>
+</html>

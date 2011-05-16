@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<title >iframe-data</title>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js" >
+		</script>
+		<script type="text/javascript" >
+	jQuery( function($) {
+		var testData = 'hello world from #div1';
+		$('#div1').data('test',testData);
+		var newTestData = $('.div2').closest('.div1').data('test');
+		$('#div2').append( 'Parent window: "' + testData + '" === "' + newTestData + '" => ' + (testData === newTestData) );
+	}); // jQuery()
+
+		</script>
+	</head>
+	<body>
+
+		<div id="div1" class="div1" >
+			<div id="div2" class="div2" >
+			</div>
+			<iframe src="iframe-data2.html" >
+			</iframe>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>jQuery.data</title>
+		<style>
+			table {
+				margin: 1em;
+				border: 1px solid #999999;
+			}
+			tr.odd {
+				background-color: #E3E3FF;
+			}
+			tr.even {
+				background-color: #E3FFE3;
+			}
+		</style>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js" ></script>
+		<script>
+			// add jsdoc comments in front to clear up the meaning
+			// also give good meaningful names to functions and parameters
+			/**
+			 * Row sorting function based on the first td element, if any
+			 * @param row1 - the first row to compare
+			 * @param row2 - the second row to compare
+			 * @return - One of the numbers -1, 0, +1 indicating which is 'bigger'
+			 */
+			function compareRows( row1, row2 ) {
+
+				// don't get the .html() since it might have other formatting tags
+				// we want to compare the visible text instead of the formating markup
+				var row1Text = row1.text();
+				var row2Text = row2.text();
+				// compare the text based on locale for simplicity
+				// instead of using < and >
+				return row1Text.localeCompare(row2Text);
+
+			} // function
+
+
+			// instead of window.onload, use jQuery onLoad
+			// why? what's the difference?
+			jQuery( function($) {
+
+				// instead of just niza = new Array();
+				// use
+				var array = [];
+				// proper coding standard for js:
+				// 1. must have var in front
+				// 2. must have ; at the end
+				// 3. english names are better
+				// 4. instead of new Array(), [] should be used
+				// why are all theese rules importaint?
+
+				// why is $("table tr").each)() not good?
+				var $table = $('table#table1');
+				var $rows = $table.find('tr');
+
+				// need to sort rows, not columns in each row
+				// always add proper parameter names in functions even if not used
+				// i.e. function(index,item) instead of function()
+				// this way you remind yourself what kind of function it is
+
+				$rows.each( function( index, item ) {
+					// avoid 'this' as a name or part of it since
+					// there will be a lot ot this'es
+					// and it will get confusing
+					// so instead of var $this write $row
+					// no need to use $(this)
+					// and caching it in a $row variable
+					// it can be reused without invoking $() many times over
+					var $row = $(item);
+					// avoid using .html() to get contents for sorting
+					// instead reuse the same dom elements
+					// i.e. $row or $row.get(0) instead of $row.html()
+					array.push($row.detach());
+
+				}); // $rows.each()
+
+				array = array.sort( compareRows );
+
+				// each removed row should be inserted in the correct order now
+				// so iterate over the array
+
+				var odd = true;
+
+				$.each( array, function( index, $item ) {
+					// the $items are already jQuery items, why? :)
+					// we can also play with the rows through $item
+					$item.addClass( odd? 'odd' : 'even' );
+					odd = ! odd;
+					$table.append($item);
+				});
+
+			}); // jQuery()
+		</script>
+	</head>
+	<body>
+
+		<table id="table1">
+			<tr>
+				<td>2</td>
+				<td>world</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>Hello</td>
+			</tr>
+			<tr>
+				<td>6</td>
+				<td>today</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>how</td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td>you</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>are</td>
+			</tr>
+		</table>
+		<table id="table2">
+			<tr>
+				<td>2</td>
+				<td>table</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>This</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>should</td>
+			</tr>
+			<tr>
+				<td>5</td>
+				<td>be</td>
+			</tr>
+			<tr>
+				<td>4</td>
+				<td>not</td>
+			</tr>
+			<tr>
+				<td>6</td>
+				<td>sorted</td>
+			</tr>
+		</table>
+	</body>
+</html>
+
